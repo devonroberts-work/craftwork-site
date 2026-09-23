@@ -1,0 +1,208 @@
+/* ==========================================================================
+   Craftwork Marketing — base stylesheet
+   Built 2026-08-09 from brand/DESIGN_SYSTEM.md.
+
+   The colours, the black/green meaning rule and the contrast rules come
+   from the design system and are decided. The type scale, spacing scale
+   and component specs did not exist yet — those are proposed here so the
+   site can actually be built. Devon can change any of them; if she does,
+   change them HERE and let every page inherit.
+
+   Font: Poppins only (Open Font Licence, free for commercial use).
+   NEVER add The Seasons or TT Chocolates to a stylesheet — they are
+   Canva-licensed and §9A prohibits use outside Canva. See DESIGN_SYSTEM.md.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ---- Colour (decided — DESIGN_SYSTEM.md) ---- */
+  --white:       #FFFFFF;
+  --pearl-aqua:  #80C2B5;
+  --jungle-teal: #00856B;
+  --pine-teal:   #004336;
+  --black:       #000000;
+
+  --bg:          var(--white);
+  --text:        var(--black);
+  --accent:      var(--jungle-teal);  /* headings, buttons, links */
+  --accent-text: var(--pine-teal);    /* green text on white — AA safe */
+  --surface:     var(--pearl-aqua);   /* light panels — black text only */
+  --inverse-bg:  var(--pine-teal);    /* dark sections — white text, AAA */
+  --muted:       #5A5A5A;             /* secondary text on white, AA at 16px+ */
+  --rule:        #E4E4E4;             /* hairlines */
+
+  /* ---- Type (proposed) ---- */
+  --font: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-body:  1.0625rem;                        /* 17px — comfortable, not chatty */
+  --fs-small: 0.9375rem;
+  --fs-lead:  1.1875rem;
+  --fs-h3:    1.3125rem;
+  --fs-h2:    clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+  --fs-h1:    clamp(2.125rem, 1.5rem + 3vw, 3.25rem);
+  --lh-tight: 1.15;
+  --lh-body:  1.6;
+
+  /* ---- Space (proposed) — 4px base ---- */
+  --s1: 0.25rem;  --s2: 0.5rem;   --s3: 0.75rem;  --s4: 1rem;
+  --s5: 1.5rem;   --s6: 2rem;     --s7: 3rem;     --s8: 4rem;
+  --s9: 6rem;     --s10: 8rem;
+
+  /* ---- Layout ---- */
+  --measure: 34rem;      /* ~68 characters — do not exceed for body copy */
+  --container: 68rem;
+  --radius: 2px;         /* nearly square. Craft, not SaaS */
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, h2, h3, p, ul, ol, figure { margin: 0; }
+img, svg { max-width: 100%; height: auto; display: block; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text);
+  background: var(--bg);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Type ---- */
+h1, h2, h3 { line-height: var(--lh-tight); font-weight: 600; letter-spacing: -0.01em; }
+h1 { font-size: var(--fs-h1); font-weight: 700; }
+h2 { font-size: var(--fs-h2); color: var(--accent-text); }
+h3 { font-size: var(--fs-h3); }
+
+p { max-width: var(--measure); }
+p + p { margin-top: var(--s4); }
+.lead { font-size: var(--fs-lead); max-width: var(--measure); }
+.small, small { font-size: var(--fs-small); }
+.muted { color: var(--muted); }
+
+/* Tracking is normal everywhere. The 5px letter-spacing in the old deck was
+   leftover A Class Ballroom styling and reads as boutique-lifestyle. */
+
+a { color: var(--accent-text); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--jungle-teal); }
+
+strong { font-weight: 600; }
+
+/* ---- Layout ---- */
+.container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--s5); }
+.section { padding-block: var(--s9); }        /* generous — the ship test asks for ~60% empty */
+.section--tight { padding-block: var(--s7); }
+
+/* On a phone the desktop spacing reads as dead scroll rather than calm,
+   because there's no column width to balance it. Same feel, less thumb. */
+@media (max-width: 48rem) {
+  .section { padding-block: var(--s7); }
+  .section--tight { padding-block: var(--s6); }
+}
+.stack > * + * { margin-top: var(--s4); }
+.stack-lg > * + * { margin-top: var(--s6); }
+
+.panel { background: var(--surface); padding: var(--s6); border-radius: var(--radius); }
+.panel * { color: var(--black); }              /* Pearl Aqua takes black text only */
+
+.inverse { background: var(--inverse-bg); color: var(--white); }
+.inverse h1, .inverse h2, .inverse h3, .inverse a { color: var(--white); }
+
+.rule { border: 0; border-top: 1px solid var(--rule); margin-block: var(--s7); }
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-block;
+  font: inherit;
+  font-weight: 600;
+  padding: var(--s3) var(--s5);
+  border-radius: var(--radius);
+  border: 2px solid var(--accent);
+  background: var(--accent);
+  color: var(--white);
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover { background: var(--pine-teal); border-color: var(--pine-teal); color: var(--white); }
+.btn:focus-visible { outline: 3px solid var(--pine-teal); outline-offset: 3px; }
+.btn--ghost { background: transparent; color: var(--accent-text); }
+.btn--ghost:hover { background: var(--accent); color: var(--white); }
+
+/* Never set light weights on green — thin strokes read lower-contrast than
+   the maths says. Buttons and green text are 500+ by rule. */
+
+/* ---- Price ---- */
+.price { font-size: var(--fs-h2); font-weight: 700; color: var(--accent-text); }
+.price__note { font-size: var(--fs-small); color: var(--muted); font-weight: 400; }
+
+/* Pearl Aqua takes black text ONLY (DESIGN_SYSTEM.md ship test #3). These
+   overrides come last so they beat .price and .muted on specificity ties —
+   without them the price line renders Pine Teal on Pearl Aqua. */
+.panel, .panel * { color: var(--black); }
+.panel .price__note { color: #333333; }
+
+/* ---- Simple two-column, collapses on small screens ---- */
+.cols { display: grid; gap: var(--s6); }
+@media (min-width: 48rem) { .cols--2 { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 48rem) { .cols--3 { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---- Accessibility ---- */
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ---- Eyebrow: the deck's tracked-caps section label ----
+   The deck sets page titles in UPPERCASE tracked caps. On the web a headline
+   that is a full sentence should stay sentence case, so the caps move to a
+   small label above it. Same signal, better readability. */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: var(--s2);
+}
+.inverse .eyebrow { color: var(--pearl-aqua); }
+
+/* ---- The green footer band ----
+   The deck's signature furniture: full-bleed Jungle Teal, tracked-caps label
+   left with a lighter subtitle under it, logo reversed to the right. */
+.band {
+  background: var(--accent);
+  color: var(--white);
+  padding-block: var(--s7);
+}
+.band .container { display: flex; align-items: center; justify-content: space-between; gap: var(--s5); flex-wrap: wrap; }
+.band__label { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.band__sub   { font-size: 0.8125rem; letter-spacing: 0.06em; font-weight: 400; }
+/* No opacity on the subtitle. The deck sets it lighter, but white at 85% on
+   Jungle Teal falls to ~3.9:1 and fails AA for small text. Full white is
+   4.6:1 and passes; the label and subtitle are told apart by weight, case
+   and tracking instead, which is a stronger signal than tint anyway. */
+.band a { color: var(--white); }
+.band .wordmark--rev .craft { color: var(--white); }
+.band .wordmark--rev .work  { color: var(--white); }
+
+/* ---- Hero pipeline diagram ----
+   Stands in for a photograph. The brand has no real photographs yet, and
+   brand/BRAND_GUIDE_REVIEW.md records why stock is the wrong answer here. */
+.pipeline { width: 100%; max-width: 34rem; margin-top: var(--s6); }
+.pipeline text { font-family: var(--font); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; fill: var(--black); }
+.pipeline .rail { stroke: var(--rule); stroke-width: 2; }
+.pipeline .node { fill: var(--white); stroke: var(--black); stroke-width: 2; }
+.pipeline .node--end { fill: var(--accent); stroke: var(--accent); }
+.pipeline .pip { fill: var(--accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .pipeline .pip { animation: pip 6s cubic-bezier(.5,0,.5,1) infinite; }
+  @keyframes pip { 0% { transform: translateX(0); opacity: 0 } 8% { opacity: 1 }
+                   92% { opacity: 1 } 100% { transform: translateX(384px); opacity: 0 } }
+}

@@ -1,0 +1,4 @@
+# Temporary: this is the pre-launch preview on *.pages.dev.
+# Remove this file when craftworkmarketing.com goes live.
+User-agent: *
+Disallow: /
